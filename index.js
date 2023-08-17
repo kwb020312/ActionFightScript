@@ -26,6 +26,7 @@ class Sprite {
     };
     this.color = color;
     this.isAttacking;
+    this.health = 100;
   }
 
   draw() {
@@ -149,7 +150,7 @@ function animate() {
     enemy.velocity.x = 5;
   }
 
-  // 충돌 감지
+  // 공격 감지(나)
   if (
     rectangularCollision({
       rectangle1: player,
@@ -158,10 +159,11 @@ function animate() {
     player.isAttacking
   ) {
     player.isAttacking = false;
-    alert("attack!");
+    enemy.health -= 20;
+    document.querySelector("#enemyHealth").style.width = enemy.health + "%";
   }
 
-  // 충돌 감지
+  // 공격 감지(상대방)
   if (
     rectangularCollision({
       rectangle1: enemy,
@@ -170,7 +172,8 @@ function animate() {
     enemy.isAttacking
   ) {
     enemy.isAttacking = false;
-    alert("damaged!");
+    player.health -= 20;
+    document.querySelector("#playerHealth").style.width = player.health + "%";
   }
 }
 
